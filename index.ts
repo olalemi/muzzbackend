@@ -17,9 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use("/api/room", require("./src/routes/room.route"));
-app.use("/api/user", require("./src/routes/user.route"));
-app.use("/api/roomMessages", require("./src/routes/roomMessages.route"));
+app.use("/api/room", require("src/routes/room.route"));
+app.use("/api/user", require("src/routes/user.route"));
+app.use("/api/roomMessages", require("src/routes/roomMessages.route"));
 
 connectDB();
 
