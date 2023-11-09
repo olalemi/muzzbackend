@@ -15,7 +15,6 @@ router.post(
       const savedRoom = await room.save();
       return res.json(savedRoom);
     } catch (err: any) {
-      console.error(err.message);
       return res.status(500).send("Something went wrong");
     }
   }
@@ -32,7 +31,6 @@ router.get("/getRooms", async (req: Request, res: Response) => {
     }
     return res.json(rooms);
   } catch (err: any) {
-    console.error(err.message);
     return res.status(500).send("Something went wrong");
   }
 });
@@ -43,7 +41,6 @@ router.delete("/:roomId", async (req: Request, res: Response) => {
     await RoomSchema.findByIdAndDelete(roomId);
     res.json({ message: `Room with ID ${roomId} deleted` });
   } catch (err: any) {
-    console.error(err.message);
     return res.status(500).send("Something went wrong");
   }
 });

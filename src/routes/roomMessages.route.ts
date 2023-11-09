@@ -51,7 +51,6 @@ router.post(
       const savedRoomMessages = await roomMessages.save();
       res.status(201).json(savedRoomMessages);
     } catch (err: any) {
-      console.error(err.message);
       return res.status(500).send("Something went wrong");
     }
   }
@@ -77,7 +76,6 @@ router.get("/getRoomMessages/:roomId", async (req: Request, res: Response) => {
 
     res.json(decryptedMessages);
   } catch (err: any) {
-    console.error(err.message);
     return res.status(500).send("Something went wrong");
   }
 });

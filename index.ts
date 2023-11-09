@@ -41,7 +41,6 @@ socketIO.on("connection", (socket) => {
   const socketUsers = {};
 
   socket.on("user", (data: IRoomUsers) => {
-    console.log(`${data.userName} just connected!`);
 
     const { _id: userId, roomId: roomId, userName: userName } = data;
     socket.userId = userId!;
@@ -85,11 +84,9 @@ socketIO.on("connection", (socket) => {
       (user) => !(user._id === socket.userId && user.roomId === socket.roomId)
     );
     socketIO.emit("userResponse", users);
-    console.log(`user just disconnected`);
     socket.disconnect();
   });
 });
 
 http.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
 });

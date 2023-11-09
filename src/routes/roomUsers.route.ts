@@ -25,7 +25,6 @@ router.post("/createRoomUser", async (req: Request, res: Response) => {
     const savedRoomusers = await roomUsers.save();
     res.status(201).json(savedRoomusers);
   } catch (err: any) {
-    console.error(err.message);
     return res.status(500).send("Something went wrong");
   }
 });
@@ -42,7 +41,6 @@ router.get("/roomUsers/:roomId", async (req: Request, res: Response) => {
     }
     res.json(roomUsersInRoom);
   } catch (err: any) {
-    console.error(err.message);
     return res.status(500).send("Something went wrong");
   }
 });

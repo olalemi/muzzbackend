@@ -16,7 +16,6 @@ router.post(
       const savedUser = await user.save();
       return res.json(savedUser);
     } catch (err: any) {
-      console.error(err.message);
       return res.status(500).send("Something went wrong");
     }
   }
@@ -31,7 +30,6 @@ router.get("/getUsers", async (req: Request, res: Response) => {
     }
     return res.json(users);
   } catch (err: any) {
-    console.error(err.message);
     return res.status(500).send("Something went wrong");
   }
 });
@@ -44,7 +42,6 @@ router.get("/getCurrentUser/:id", async (req: Request, res: Response) => {
     }
     return res.json(user);
   } catch (err: any) {
-    console.error(err.message);
     return res.status(500).send("Something went wrong");
   }
 });
