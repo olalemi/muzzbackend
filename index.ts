@@ -6,6 +6,8 @@ import { connectDB } from "./database";
 import errorHandler from "./src/middlewares/errors/errorHandler";
 import { notFound } from "./src/middlewares/errors/notFound";
 import { IRoomUsers } from "./src/database/models/roomUsers.model";
+import { IUser, UserSchema } from "./src/database/models/user.models";
+
 
 dotenv.config();
 
@@ -28,6 +30,24 @@ app.get("/api", (req, res) => {
     message: "Hello world"
   });
 });
+
+app.get('/test-db-connection', async (req, res) => {
+  try {
+    // Perform a simple database operation
+    const result = await UserSchema.findOne();
+
+    // Log the result
+    console.log('Database Connection Successful:', result);
+
+    // Send a response
+    res.json({ success: true, message: 'Database connection successful' });
+  } catch (error) {
+    // Log any errors
+    console.error('Database Connection Error:', error);
+    res.status(500).json({ success: false, message: 'Database connection error' });
+  }
+});
+
 
 const socketIO = require("socket.io")(http, {
   cors: {
