@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { body } from "express-validator";
 import { IRoom, RoomSchema } from "../database/models/room.model";
+import {RoomMessagesSchema} from "../database/models/roomMessages.model"
 
 const router = Router();
 
@@ -35,14 +36,26 @@ router.get("/getRooms", async (req: Request, res: Response) => {
   }
 });
 
-router.delete("/:roomId", async (req: Request, res: Response) => {
-  const roomId = req.params.roomId;
+router.delete("/:roomId", async (req, res) => {
+  const { roomId } = req.params;
   try {
+    // Find the room first to ensure it exists
+    const room = await RoomSchema.findById(roomId);
+    if (!room) {
+      return res.status(404).send("Room not found");
+    }
+
+    // Delete all messages associated with the room
+    await RoomMessagesSchema.deleteMany({ roomId });
+
+    // After confirming that messages are deleted, delete the room
     await RoomSchema.findByIdAndDelete(roomId);
-    res.json({ message: `Room with ID ${roomId} deleted` });
-  } catch (err: any) {
+
+    res.json({ message: `Room with ID ${roomId} and all associated messages have been deleted.` });
+  } catch (err) {
     return res.status(500).send("Something went wrong");
   }
 });
+
 
 module.exports = router;
